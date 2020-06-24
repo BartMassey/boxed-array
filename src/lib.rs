@@ -43,9 +43,14 @@ macro_rules! boxed_array_fn {
         {
             use std::mem::ManuallyDrop;
 
-            // Create a Vec of the same capacity as the resulting Box<Array>
-            // At the end of this function we will make the memory be owned
-            // by the box, so this Vec must not be dropped.
+            // XXX This code should use
+            // Vec::into_raw_parts() once that function is
+            // stabilized.
+
+            // Create a Vec of the same capacity as the
+            // resulting Box<Array> At the end of this
+            // function we will make the memory be owned by
+            // the box, so this Vec must not be dropped.
             let mut array: ManuallyDrop<Vec<T>> =
                 ManuallyDrop::new(Vec::with_capacity($size));
 
@@ -60,8 +65,9 @@ macro_rules! boxed_array_fn {
                 };
             }
 
-            // Convert the Vec to a Box<Array>. The box now owns the
-            // memory and is in charge of freeing it.
+            // Convert the memory taken from the Vec to a
+            // Box<Array>. The box now owns the memory and
+            // is in charge of freeing it.
             unsafe { Box::from_raw(ptr as *mut [T; $size]) }
         }
     };
