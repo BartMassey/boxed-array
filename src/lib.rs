@@ -3,8 +3,9 @@
 //! use a vector instead, but length-checking and efficiency
 //! might conceivably make this a useful option.
 //!
-//! This crate is derived from code written by Redditor
-//! /u/Lord_Zane and published on Reddit in [this
+//! This crate is derived from code written by Discorder "impl Fox for
+//! Salis" and Redditor /u/Lord_Zane and published on Reddit
+//! in [this
 //! comment](https://www.reddit.com/r/rust/comments/hemjx0/boxnew_lies_data_is_created_on_the_stack_then/fvscmj9?utm_source=share&utm_medium=web2x).
 //!
 //! When const generics are stabilized, this macro can be
