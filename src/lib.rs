@@ -27,7 +27,7 @@
 /// # #[macro_use] extern crate boxed_array;
 /// boxed_array_fn!(seq, 3);
 /// assert_eq!(seq(|i| i), Box::new([0, 1, 2]));
-/// 
+///
 /// boxed_array_fn!(seq_seq, 2);
 /// assert_eq!(
 ///     seq_seq(|j| *seq(|i| i + j)),
@@ -38,7 +38,8 @@
 macro_rules! boxed_array_fn {
     ($name:ident, $size:literal) => {
         fn $name<T, F>(mut init: F) -> Box<[T; $size]>
-            where F: FnMut(usize) -> T 
+        where
+            F: FnMut(usize) -> T,
         {
             use std::mem::ManuallyDrop;
 
@@ -47,13 +48,18 @@ macro_rules! boxed_array_fn {
             // by the box, so this Vec must not be dropped.
             let mut array: ManuallyDrop<Vec<T>> =
                 ManuallyDrop::new(Vec::with_capacity($size));
-        
+
             // Fill the memory with the initial data.
             let ptr = array.as_mut_ptr();
             for i in 0..$size {
-                unsafe { std::ptr::write::<T>(ptr.offset(i as isize), init(i)) };
+                unsafe {
+                    std::ptr::write::<T>(
+                        ptr.offset(i as isize),
+                        init(i),
+                    )
+                };
             }
-            
+
             // Convert the Vec to a Box<Array>. The box now owns the
             // memory and is in charge of freeing it.
             unsafe { Box::from_raw(ptr as *mut [T; $size]) }
