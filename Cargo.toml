@@ -1,0 +1,5 @@
+[package]
+name = "boxed-array"
+version = "0.1.0"
+authors = ["Redditor /u/Lord_Zane", "Bart Massey <bart.massey@gmail.com>"]
+edition = "2018"
