@@ -6,6 +6,10 @@
 //! This crate is derived from code written by Redditor
 //! /u/Lord_Zane and published on Reddit in [this
 //! comment](https://www.reddit.com/r/rust/comments/hemjx0/boxnew_lies_data_is_created_on_the_stack_then/fvscmj9?utm_source=share&utm_medium=web2x).
+//!
+//! When const generics are stabilized, this macro can be
+//! replaced by a function. If some form of "placement new"
+//! is stabilized, this crate becomes obsolete.
 
 /// Make a function with a given name and array size (must be `usize`) that
 /// returns a boxed array of the given size constructed on the heap rather
